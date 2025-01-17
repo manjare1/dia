@@ -188,12 +188,12 @@ const Index = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="p-1 rounded-full">
+                  <a href="https://x.com/DIA_AGentK" className="p-1 rounded-full">
                     <FaTelegram size={25} />
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="p-1 rounded-full">
+                  <a href="https://t.me/decentralizedIntelligenceAgency" className="p-1 rounded-full">
                     <FaTwitter size={25} />
                   </a>
                 </li>
