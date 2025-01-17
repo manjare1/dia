@@ -1,40 +1,102 @@
-import React, { useState } from 'react';
-import Head from 'next/head';
-import { FaTelegram, FaTwitter } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import Head from "next/head";
+import { FaTelegram, FaTwitter } from "react-icons/fa";
+import { Connection, PublicKey } from "@solana/web3.js";
+import { useWallet } from "@solana/wallet-adapter-react";
+import {
+  WalletModalProvider,
+  WalletMultiButton,
+} from "@solana/wallet-adapter-react-ui"; // Pre-built wallet UI
+
+const DIA_CONTRACT_ADDRESS = new PublicKey(
+  "3LbZxMSmRe2mACnBMjsrng7U2FzgJh4hmUsa4w3bpump"
+);
+const MIN_DIA_BALANCE = 50000;
 
 const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [task1Completed, setTask1Completed] = useState(false);
-  const [postLink, setPostLink] = useState('');
+  const [postLink, setPostLink] = useState("");
+  const [isDiaHolder, setIsDiaHolder] = useState(false);
+  const [renderFlag, setRenderFlag] = useState(false); // Added renderFlag state
+  const { publicKey, connected } = useWallet();
+  const [email, setEmail] = useState("");
+  const [xPostLink, setXPostLink] = useState("");
+  const [tokenBalance, setTokenBalance] = useState(0); // Add state for token balance
+
+  useEffect(() => {
+    const checkDiaBalance = async () => {
+      if (connected && publicKey) {
+        const connection = new Connection(
+          "https://mainnet.helius-rpc.com/?api-key=9c0e42d6-3a14-44d5-80f0-9fd3fc3c30f8"
+        );
+        try {
+          const tokenAccounts = await connection.getParsedTokenAccountsByOwner(
+            publicKey,
+            { mint: DIA_CONTRACT_ADDRESS }
+          );
+          if (tokenAccounts.value.length > 0) {
+            const balance =
+              tokenAccounts.value[0].account.data.parsed.info.tokenAmount
+                .uiAmount;
+            console.log("Detected DIA Balance:", balance);
+            setTokenBalance(balance); // Set token balance
+            const isHolder = balance >= MIN_DIA_BALANCE;
+            setIsDiaHolder(isHolder);
+            console.log("Is DIA Holder:", isHolder);
+            setRenderFlag((prev) => !prev); // Force a re-render whenever isDiaHolder changes
+          } else {
+            console.log("No DIA tokens found for this wallet");
+            setIsDiaHolder(false);
+            setRenderFlag((prev) => !prev); // Force a re-render in case of state change
+          }
+        } catch (error) {
+          console.error("Error checking DIA balance:", error);
+          setIsDiaHolder(false);
+          setRenderFlag((prev) => !prev); // Ensure re-render happens
+        }
+      } else {
+        console.log("Wallet not connected");
+      }
+    };
+    checkDiaBalance();
+  }, [connected, publicKey]);
 
   const handleTask1Click = () => {
     setTask1Completed(true);
-    window.open('https://twitter.com/intent/tweet?text=Agent%20X%20reporting%20for%20Duty.%20%23DIA', '_blank');  };
+    window.open(
+      "https://twitter.com/intent/tweet?text=Agent%20X%20reporting%20for%20Duty.%20%23DIA",
+      "_blank"
+    );
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Send the postLink to your API
     try {
-      const response = await fetch('/api/submit-task', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ postLink }),
+      const response = await fetch("/api/submit-task", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          task: "1",
+          email,
+          xPostLink,
+          walletAddress: publicKey.toString(),
+          tokenBalance,
+        }),
       });
       if (response.ok) {
-        alert('Task data submitted successfully!');
+        alert("Task data submitted successfully!");
         setIsModalOpen(false);
       } else {
-        alert('Failed to submit task data.');
+        alert("Failed to submit task data.");
       }
     } catch (error) {
-      console.error('Error submitting task data:', error);
+      console.error("Error submitting task data:", error);
     }
   };
 
   return (
-    <>
+    <WalletModalProvider>
       <Head>
         <title>Decentral Intelligence Agency (DIA)</title>
         <link rel="icon" href="/favicon.ico" />
@@ -120,12 +182,16 @@ const Index = () => {
         <header className="bg-blue-900 shadow-lg">
           <div className="container mx-auto px-4 py-3 flex justify-between items-center">
             <div className="flex items-center space-x-3">
-              <img src="/dia-logo.png" alt="DIA Logo" className="w-8 h-8 object-contain" />
+              <img src="/dia-logo.png" alt="DIA Logo" className="w-8 h-8" />
               <h2 className="text-2xl font-bold">DIA</h2>
             </div>
             <nav>
               <ul className="flex items-center space-x-4">
-                <li><a href="#" className="text-sm hover:text-blue-300">Home</a></li>
+                <li>
+                  <a href="#" className="text-sm hover:text-blue-300">
+                    Home
+                  </a>
+                </li>
                 <li>
                   <a href="#" className="p-1 rounded-full">
                     <FaTelegram size={25} />
@@ -142,59 +208,78 @@ const Index = () => {
         </header>
         <main className="flex-grow flex items-center justify-center p-4">
           <div className="border-4 border-blue-500 p-8 max-w-4xl w-full bg-white text-black flex flex-col items-center space-y-6">
-            <img src="/dia-logo.png" alt="DIA Logo" className="w-32 h-32 object-contain" />
-            <h1 className="text-4xl font-bold text-center">THIS WEBSITE IS RUN BY DIA</h1>
+            <img
+              src="/dia-logo.png"
+              alt="DIA Logo"
+              className="w-32 h-32 object-contain"
+            />
+            <h1 className="text-4xl font-bold text-center">
+              THIS WEBSITE IS RUN BY DIA
+            </h1>
             <p className="text-xl text-center">
-              This domain has been seized by the Decentral Intelligence Agency (DIA) as part of a coordinated buidl enforcement action.
+              This domain has been seized by the Decentral Intelligence Agency
+              (DIA) as part of a coordinated buidl enforcement action.
             </p>
             <div className="flex space-x-4">
-              <button className="scribbly-button" onClick={() => setIsModalOpen(true)}><strong>DIA TASKS</strong></button>
+              <WalletMultiButton />
+              <button
+                className="scribbly-button"
+                onClick={() => setIsModalOpen(true)}
+                disabled={!connected || !isDiaHolder}
+              >
+                <strong>DIA TASKS</strong>
+              </button>
             </div>
           </div>
         </main>
       </div>
 
       {isModalOpen && (
-  <div className="modal">
-    <div className="modal-content relative">
-      <button
-        className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-        onClick={() => setIsModalOpen(false)}
-      >
-        &times;
-      </button>
-      <h2 className="text-2xl font-bold mb-4">DIA Tasks</h2>
-      <div className="space-y-4">
-        <div>
-          <button className="scribbly-button" onClick={handleTask1Click}>
-            1: Make an X Post with #DIA hashtag and your Agent code name
-          </button>
-        </div>
-        <div>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="url"
-              placeholder="Enter your X post link"
-              value={postLink}
-              onChange={(e) => setPostLink(e.target.value)}
-              className="border p-2 w-full"
-              disabled={!task1Completed}
-              required
-            />
+        <div className="modal">
+          <div className="modal-content relative">
             <button
-              type="submit"
-              className="scribbly-button mt-2"
-              disabled={!task1Completed}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              onClick={() => setIsModalOpen(false)}
             >
-              Submit Task
+              &times;
             </button>
-                </form>
+            <h2 className="text-2xl font-bold mb-4">DIA Tasks</h2>
+            <div className="space-y-4">
+              <div>
+                <button className="scribbly-button" onClick={handleTask1Click}>
+                  1: Make an X Post with #DIA hashtag and your Agent code name
+                </button>
               </div>
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="border p-2 w-full"
+                  required
+                />
+                <input
+                  type="url"
+                  placeholder="Enter your X Post link"
+                  value={xPostLink}
+                  onChange={(e) => setXPostLink(e.target.value)}
+                  className="border p-2 w-full"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="scribbly-button mt-2"
+                  disabled={!task1Completed}
+                >
+                  Submit Task
+                </button>
+              </form>
             </div>
           </div>
         </div>
       )}
-    </>
+    </WalletModalProvider>
   );
 };
 
