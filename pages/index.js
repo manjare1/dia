@@ -11,7 +11,7 @@ import {
 const DIA_CONTRACT_ADDRESS = new PublicKey(
   "3LbZxMSmRe2mACnBMjsrng7U2FzgJh4hmUsa4w3bpump"
 );
-const MIN_DIA_BALANCE = 50000;
+const MIN_DIA_BALANCE = 10000;
 
 const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
