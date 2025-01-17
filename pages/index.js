@@ -155,33 +155,39 @@ const Index = () => {
       </div>
 
       {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2 className="text-2xl font-bold mb-4">DIA Tasks</h2>
-            <div className="space-y-4">
-              <div>
-                <button className="scribbly-button" onClick={handleTask1Click}>
-                  1: Make an X Post with #DIA hashtag and your Agent code name
-                </button>
-              </div>
-              <div>
-                <form onSubmit={handleSubmit}>
-                  <input
-                    type="url"
-                    placeholder="Enter your X post link"
-                    value={postLink}
-                    onChange={(e) => setPostLink(e.target.value)}
-                    className="border p-2 w-full"
-                    disabled={!task1Completed}
-                    required
-                  />
-                  <button
-                    type="submit"
-                    className="scribbly-button mt-2"
-                    disabled={!task1Completed}
-                  >
-                    Submit Task
-                  </button>
+  <div className="modal">
+    <div className="modal-content relative">
+      <button
+        className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+        onClick={() => setIsModalOpen(false)}
+      >
+        &times;
+      </button>
+      <h2 className="text-2xl font-bold mb-4">DIA Tasks</h2>
+      <div className="space-y-4">
+        <div>
+          <button className="scribbly-button" onClick={handleTask1Click}>
+            1: Make an X Post with #DIA hashtag and your Agent code name
+          </button>
+        </div>
+        <div>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="url"
+              placeholder="Enter your X post link"
+              value={postLink}
+              onChange={(e) => setPostLink(e.target.value)}
+              className="border p-2 w-full"
+              disabled={!task1Completed}
+              required
+            />
+            <button
+              type="submit"
+              className="scribbly-button mt-2"
+              disabled={!task1Completed}
+            >
+              Submit Task
+            </button>
                 </form>
               </div>
             </div>
