@@ -216,13 +216,15 @@ const Index = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.dextools.io/app/en/solana/pair-explorer/Fg1zSaBRBLCERsaTTk5397GoQUi4kcZ9d6Ud5vDtranC?t=1737144071538" className="p-1 rounded-full">
+                  <a
+                    href="https://www.dextools.io/app/en/solana/pair-explorer/Fg1zSaBRBLCERsaTTk5397GoQUi4kcZ9d6Ud5vDtranC?t=1737144071538"
+                    className="p-1 rounded-full"
+                  >
                     <img
                       src="/dextools.png"
                       alt="Dextools"
                       className="w-8 h-8"
-                      style={{ marginTop: '-3px' }} 
-
+                      style={{ marginTop: "-3px" }}
                     />
                   </a>
                 </li>
@@ -249,7 +251,13 @@ const Index = () => {
               mainframe
             </p>
             <div className="flex space-x-4">
-              <WalletMultiButton />
+              <WalletMultiButton startIcon={null}>
+                {connected
+                  ? `${publicKey.toString().slice(0, 4)}...${publicKey
+                      .toString()
+                      .slice(-4)}`
+                  : "Connect"}
+              </WalletMultiButton>
               <button
                 className="scribbly-button"
                 onClick={() => setIsModalOpen(true)}
