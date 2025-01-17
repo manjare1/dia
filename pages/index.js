@@ -214,6 +214,10 @@ const Index = () => {
             <p className="text-xl text-center">
               This domain has been seized by the Decentral Intelligence Agency
               (DIA) as part of a coordinated buidl enforcement action.
+              
+            </p>
+            <p className="text-center">
+              Operatives need 10k tokens to verify identity to access the mainframe
             </p>
             <div className="flex space-x-4">
               <WalletMultiButton />
@@ -224,6 +228,8 @@ const Index = () => {
               >
                 <strong>DIA TASKS</strong>
               </button>
+              
+              
             </div>
           </div>
         </main>
