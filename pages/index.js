@@ -308,7 +308,7 @@ const Index = () => {
                   className="scribbly-button mt-2"
                   disabled={!task1Completed}
                 >
-                  Submit Task
+                  <strong>Submit Task</strong>
                 </button>
               </form>
             </div>
