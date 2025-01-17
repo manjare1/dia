@@ -39,24 +39,19 @@ const Index = () => {
             const balance =
               tokenAccounts.value[0].account.data.parsed.info.tokenAmount
                 .uiAmount;
-            console.log("Detected DIA Balance:", balance);
             setTokenBalance(balance); // Set token balance
             const isHolder = balance >= MIN_DIA_BALANCE;
             setIsDiaHolder(isHolder);
-            console.log("Is DIA Holder:", isHolder);
             setRenderFlag((prev) => !prev); // Force a re-render whenever isDiaHolder changes
           } else {
-            console.log("No DIA tokens found for this wallet");
             setIsDiaHolder(false);
             setRenderFlag((prev) => !prev); // Force a re-render in case of state change
           }
         } catch (error) {
-          console.error("Error checking DIA balance:", error);
           setIsDiaHolder(false);
           setRenderFlag((prev) => !prev); // Ensure re-render happens
         }
       } else {
-        console.log("Wallet not connected");
       }
     };
     checkDiaBalance();
