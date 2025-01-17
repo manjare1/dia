@@ -188,13 +188,42 @@ const Index = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="https://x.com/DIA_AGentK" className="p-1 rounded-full">
+                  <a
+                    href="https://x.com/DIA_AGentK"
+                    className="p-1 rounded-full"
+                  >
                     <FaTelegram size={25} />
                   </a>
                 </li>
                 <li>
-                  <a href="https://t.me/decentralizedIntelligenceAgency" className="p-1 rounded-full">
+                  <a
+                    href="https://t.me/decentralizedIntelligenceAgency"
+                    className="p-1 rounded-full"
+                  >
                     <FaTwitter size={25} />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://dexscreener.com/solana/fg1zsabrblcersattk5397goqui4kcz9d6ud5vdtranc"
+                    className="p-1 rounded-full"
+                  >
+                    <img
+                      src="/dexscreener.png"
+                      alt="Dexscreener"
+                      className="w-7 h-7"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.dextools.io/app/en/solana/pair-explorer/Fg1zSaBRBLCERsaTTk5397GoQUi4kcZ9d6Ud5vDtranC?t=1737144071538" className="p-1 rounded-full">
+                    <img
+                      src="/dextools.png"
+                      alt="Dextools"
+                      className="w-8 h-8"
+                      style={{ marginTop: '-3px' }} 
+
+                    />
                   </a>
                 </li>
               </ul>
@@ -214,10 +243,10 @@ const Index = () => {
             <p className="text-xl text-center">
               This domain has been seized by the Decentral Intelligence Agency
               (DIA) as part of a coordinated buidl enforcement action.
-              
             </p>
             <p className="text-center">
-              Operatives need 10k tokens to verify identity to access the mainframe
+              Operatives need 10k tokens to verify identity to access the
+              mainframe
             </p>
             <div className="flex space-x-4">
               <WalletMultiButton />
@@ -228,8 +257,6 @@ const Index = () => {
               >
                 <strong>DIA TASKS</strong>
               </button>
-              
-              
             </div>
           </div>
         </main>
