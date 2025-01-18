@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import { FaTelegram, FaTwitter } from "react-icons/fa";
+import { FaTelegram, FaXTwitter } from "react-icons/fa6";
 import { Connection, PublicKey } from "@solana/web3.js";
 import { useWallet } from "@solana/wallet-adapter-react";
 import {
@@ -197,7 +197,7 @@ const Index = () => {
                     href="https://x.com/DIA_AGentK"
                     className="p-1 rounded-full"
                   >
-                    <FaTwitter size={25} />
+                    <FaXTwitter size={25} />
                   </a>
                 </li>
                 <li>
