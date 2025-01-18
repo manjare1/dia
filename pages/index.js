@@ -59,7 +59,7 @@ const Index = () => {
   const handleTask1Click = () => {
     setTask1Completed(true);
     window.open(
-      "https://twitter.com/intent/tweet?text=Agent%20X%20reporting%20for%20Duty.%20%23DIA",
+      "https://twitter.com/intent/post?text=Agent%20X%20reporting%20for%20Duty.%20%23DIA",
       "_blank"
     );
   };
