@@ -67,22 +67,9 @@ const Index = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/submit-task", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          task: "1",
-          xPostLink,
-          walletAddress: publicKey.toString(),
-          tokenBalance,
-        }),
-      });
-      if (response.ok) {
-        alert("Task data submitted successfully!");
-        setIsModalOpen(false);
-      } else {
-        alert("Failed to submit task data.");
-      }
+      // Simulate a successful task submission
+      alert("Task completed successfully!");
+      setIsModalOpen(false);
     } catch (error) {
       console.error("Error submitting task data:", error);
     }
