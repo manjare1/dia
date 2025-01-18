@@ -200,11 +200,7 @@ const Index = () => {
             </div>
             <nav>
               <ul className="flex items-center space-x-4">
-                <li>
-                  <a href="#" className="text-sm hover:text-blue-300">
-                    Home
-                  </a>
-                </li>
+
                 <li>
                   <a
                     href="https://x.com/DIA_AGentK"
