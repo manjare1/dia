@@ -186,7 +186,7 @@ const Index = () => {
 
                 <li>
                   <a
-                    href="https://x.com/DIA_AGentK"
+                    href="https://t.me/decentralizedIntelligenceAgency"
                     className="p-1 rounded-full"
                   >
                     <FaTelegram size={25} />
@@ -194,7 +194,7 @@ const Index = () => {
                 </li>
                 <li>
                   <a
-                    href="https://t.me/decentralizedIntelligenceAgency"
+                    href="https://x.com/DIA_AGentK"
                     className="p-1 rounded-full"
                   >
                     <FaTwitter size={25} />
