@@ -20,7 +20,6 @@ const Index = () => {
   const [isDiaHolder, setIsDiaHolder] = useState(false);
   const [renderFlag, setRenderFlag] = useState(false); 
   const { publicKey, connected } = useWallet();
-  const [email, setEmail] = useState("");
   const [xPostLink, setXPostLink] = useState("");
   const [tokenBalance, setTokenBalance] = useState(0); 
 
@@ -73,7 +72,6 @@ const Index = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           task: "1",
-          email,
           xPostLink,
           walletAddress: publicKey.toString(),
           tokenBalance,
@@ -173,7 +171,6 @@ const Index = () => {
               width: 100%;
             }
     
-            input[type="email"],
             input[type="url"] {
               border: 2px solid #1d4ed8;
               padding: 10px;
@@ -184,7 +181,6 @@ const Index = () => {
               transition: border-color 0.3s ease;
             }
     
-            input[type="email"]:focus,
             input[type="url"]:focus {
               border-color: #2563eb;
               outline: none;
@@ -307,14 +303,7 @@ const Index = () => {
                 </button>
               </div>
               <form onSubmit={handleSubmit}>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="border p-2 w-full"
-                  required
-                />
+                
                 <input
                   type="url"
                   placeholder="Enter your X Post link"
